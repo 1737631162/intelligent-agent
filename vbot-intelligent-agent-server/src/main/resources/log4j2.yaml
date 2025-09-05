@@ -1,0 +1,42 @@
+Configuration:
+  Properties: # 定义全局变量
+    Property: # 缺省配置（用于开发环境）。其他环境需要在VM参数中指定，如下：
+      - name: log.level.console
+        value: info
+      - name: CONTAINER_NAME
+        value: ""
+      - name: log.path
+        value: /carbond/logs/${env:CONTAINER_NAME}
+      - name: project.name
+        value: vbot-intelligent-agent
+      - name: FILE_LOG_PATTERN
+        value: "[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5p --- [%t] %-40.40logger{40} : [%X{TRACE_ID}]-%m%n"
+      - name: LOG_PATTERN
+        value: ${env:FILE_LOG_PATTERN}
+  Appenders:
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "${LOG_PATTERN}"
+    RollingFile:
+      - name: DEFAULT_LOG_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/${project.name}-#console#-default.log
+        filePattern: "${log.path}/${project.name}-%d{yyyy-MM-dd}-%i-#console#-default.log"
+        PatternLayout:
+          pattern: "${LOG_PATTERN}"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: "1024 MB"
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 2
+  Loggers:
+    Root:
+      level: ${log.level.console}
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: DEFAULT_LOG_FILE
