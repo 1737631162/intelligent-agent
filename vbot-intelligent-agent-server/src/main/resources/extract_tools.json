@@ -1,0 +1,499 @@
+[
+    {
+        "type": "function",
+        "function": {
+            "name": "air_condition_control",
+            "description": "控制空调的开关、温度、模式和风速以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "空调控制：开启-open，关闭-close，功能设置-setting，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "setting",
+                            "query"
+                        ]
+                    },
+                    "temperature": {
+                        "type": "string",
+                        "description": "设置空调温度：-为降低，+为升高，否则为具体值"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "description": "设置空调模式，选项：自动、制冷、制热、抽湿、送风",
+                        "enum": [
+                            "自动",
+                            "制冷",
+                            "制热",
+                            "抽湿",
+                            "送风"
+                        ]
+                    },
+                    "fanSpeed": {
+                        "type": "string",
+                        "description": "设置空调风速：范围1-100，精度1，-为降低，+为升高，否则为具体值"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "空调品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "空调位置信息，例如客厅、卧室、浴室、厨房、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "空调的序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有空调，true为控制所有空调，false为控制单个空调"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "fan_device_control",
+            "description": "控制风扇的开关、挡数、模式和摇头状态以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "风扇控制：开启-open，关闭-close，功能设置-setting，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "setting",
+                            "query"
+                        ]
+                    },
+                    "gear": {
+                        "type": "string",
+                        "description": "风扇档数：1~9挡，-为降低，+为升高，否则为具体值"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "description": "风扇运行模式",
+                        "enum": [
+                            "自选风",
+                            "安睡风",
+                            "生态风"
+                        ]
+                    },
+                    "oscillation": {
+                        "type": "boolean",
+                        "description": "风扇风扇左右摇头状态，true为开启摇头，false为关闭摇头"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "风扇品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "风扇位置信息，例如客厅、卧室、浴室、厨房、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "风扇的序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有风扇，true为控制所有风扇，false为控制单个风扇"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "tv_device_control",
+            "description": "控制电视的打开和关闭操作以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "电视控制：开启-open，关闭-close，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "query"
+                        ]
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "电视品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "电视位置信息，例如客厅、卧室、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "电视的序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有电视，true为控制所有电视，false为控制单个电视"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "door_lock_control",
+            "description": "控制门锁的锁定和解锁操作以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "门锁控制：开启-open，关闭-close，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "query"
+                        ]
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "门锁品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "门锁位置信息，例如客厅、卧室、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "门锁的序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有门锁，true为控制所有门锁，false为控制单个门锁"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "dehumidifier_control",
+            "description": "控制除湿机的打开和关闭操作以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "除湿机控制：开启-open，关闭-close，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "query"
+                        ]
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "除湿机品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "除湿机位置信息，例如客厅、卧室、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "除湿机的序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有除湿机，true为控制所有除湿机，false为控制单个除湿机"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "air_purifier_control",
+            "description": "控制空气净化器的打开和关闭操作以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "空气净化器控制：开启-open，关闭-close，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "query"
+                        ]
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "空气净化器品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "空气净化器位置信息，例如客厅、卧室、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "空气净化器的序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有空气净化器，true为控制所有空气净化器，false为控制单个空气净化器"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "curtain_device_control",
+            "description": "控制窗帘的打开、关闭和暂停操作以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "窗帘控制：开启-open，关闭-close，暂停-pause，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "pause",
+                            "query"
+                        ]
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "窗帘品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "窗帘位置信息，例如客厅、卧室、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "窗帘的序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有窗帘，true为控制所有窗帘，false为控制单个窗帘"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "light_device_control",
+            "description": "灯光的开关控制以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "灯光控制：开启-open，关闭-close，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "query"
+                        ]
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "灯光品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "灯光位置信息，例如客厅、卧室、厨房、浴室、书房、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "灯的序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有灯光，true为控制所有灯光，false为控制单个灯光"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "sweeper_device_control",
+            "description": "控制扫地机的全屋清洁、暂停、继续和充电功能以及状态查询",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "扫地机控制：开启-open，暂停-pause，继续-resume，充电-charge，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "pause",
+                            "resume",
+                            "charge",
+                            "query"
+                        ]
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "扫地机品牌信息，美的或者海尔",
+                        "enum": [
+                            "美的",
+                            "海尔"
+                        ]
+                    },
+                    "loc": {
+                        "type": "string",
+                        "description": "扫地机位置信息，例如客厅、卧室、儿童房等"
+                    },
+                    "index": {
+                        "type": "string",
+                        "description": "扫地机序号，只能为整数"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有扫地机，true为控制所有扫地机，false为控制单个扫地机"
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "scene_mode_control",
+            "description": "智能场景控制：如宜家模式、离家模式。",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "场景控制：开启-open，关闭-close",
+                        "enum": [
+                            "open",
+                            "close"
+                        ]
+                    },
+                    "living": {
+                        "type": "string",
+                        "description": "具体的场景模式"
+                    },
+                    "isAll": {
+                        "type": "boolean",
+                        "description": "是否控制所有场景，true为控制所有场景，false为控制单个场景"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "unknown_device_control",
+            "description": "未知设备类型控制：当用户未明确告知设备类型时，可调用该函数进行控制，如“打开我的精灵”",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "未知设备控制：开启-open，关闭-close，暂停-pause，继续-resume，充电-charge，查询当前状态-query",
+                        "enum": [
+                            "open",
+                            "close",
+                            "pause",
+                            "resume",
+                            "charge",
+                            "query"
+                        ]
+                    },
+                    "targetName": {
+                        "type": "string",
+                        "description": "控制目标名称"
+                    }
+                },
+                "required": [
+                    "action",
+                    "targetName"
+                ]
+            }
+        }
+    }
+]
