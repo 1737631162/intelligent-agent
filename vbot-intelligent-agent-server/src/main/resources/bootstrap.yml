@@ -1,0 +1,90 @@
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: ${APP_NAME:carbond-vbot-intelligent-agent}
+  #  profiles:
+  #    active:
+  #    - dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    #   sentinel:
+    #    enabled: true
+    #     filter:
+    #       enabled: true
+    #     eager: true
+    #     transport:
+    #       dashboard: localhost:8088
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:10.64.57.10:8848}
+        # 默认会调用 application.name.yaml
+        file-extension: yml
+        namespace: ${CONF_NAMESPACE:dev}
+        group: ${NACOS_CONFIG_GROUP:config}
+        timeout: 5000
+        # 长轮询超时时间
+        config-long-poll-timeout: 10000
+        # 轮询的重试时间
+        config-retry-time: 2000
+        # 长轮询最大重试次数
+        max-retry: 3
+        # 开启监听和自动刷新
+        refresh-enabled: true
+        enabled: true
+        username: ${NACOS_CONFIG_USERNAME:vot-dev}
+        password: ${NACOS_CONFIG_PASSWORD:5a+G56CBCg}
+  kafka:
+    bootstrap-servers: 10.64.57.16:9092,10.64.57.17:9092,10.64.57.18:9092
+    consumer:
+      topic:
+        device-sync: sl-vhe-ai-data-sync
+      group-id: VBOT-INTELLIGENT-AGENT
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+
+openai:
+  rewrite:
+    base-url: http://preprod.changan.com.cn:9214
+    model: Qwen-Dialogue-Rewrite
+    max-new-tokens: 100
+    temperature: 0.01
+    user-prompt: "你是一个远控家电场景下的问题改写专家，可以根据历史消息完善当前用户问题中的缺失信息，最终将用户当前问题改写为独立且完整表达的标准问题。\n历史消息包含的指令已经执行完毕，不同轮次的历史消息间用换行符分割；用户当前问题中的指令为将要执行部分，需要根据历史信息进行完善。\n 下面是历史消息和用户当前问题的拼接体：\n 历史对话：{historyMessages}\n 当前问题：{currentMessage} \n ###注意事项：\n 1、历史消息仅作为当前问题的补充参考，用于弥补当前问题中存在设备、地点、品牌等缺失信息或部分逻辑；\n 2、改写后的问题中不可包含历史消息中已经执行的指令，应以当前问题中提及的指令为最高优先级；\n 3、如果当前问题结合历史消息在语义无法形成上述完整的指令相关信息，则将当前问题原字样输出；\n 4、最终仅输出改写后的标准问题部分，改写结果应当尽可能简洁和完善。"
+  extract:
+    base-url: http://preprod.changan.com.cn:9213
+    model: Qwen-Parameter-Extraction
+    max-new-tokens: 500
+    tool-path: "classpath:extract_tools.json"
+    temperature: 0.01
+  chat:
+    api-key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDIzMDA3NzAiLCJleHAiOjE3NTU2MDA5MzB9.M0qAfV-pUKaEzcvvuw8q0agQq8YKhOfmQ5eMZocklM8"
+    base-url: http://ai.sda.changan.com.cn/api
+    model: 88
+    system-prompt: "## 角色设定\n你是家居设备智能助手小安，性格活泼可爱，擅长通过调用设备接口完成控制与状态查询，并基于结果提供高情商回应。\n## 可用设备\n空调、扫地机、灯、风扇、空气净化器、窗帘、除湿器、门锁、电视。\n## 功能限定\n* 具备设备控制或查询设备状态的权限；\n* 不具备售后服务能力，请勿进行售后咨询。\n## 设备控制结果说明\ncommandId：设备控制指令ID；\nerrorMsg：控制结果提示信息；\nresultCode：控制结果状态码：0表示超时，1表示成功，2表示失败；\n## 回答要求\n* 严格根据接口返回的数据和用户问题作答，若无数据则直接回应问题；\n* 保持高情商，语气亲切自然，体现关怀与主动性，请勿提及售后服务问题；\n* 设备控制类的指令回复不要超过30字，其它问题回复应简洁明了，避免冗余信息；\n* 禁止输出敏感词和对敏感问题进行回复。"
+    max-new-tokens: 2048
+    tool-path: "classpath:extract_tools.json"
+  embedding:
+    base-url: 'http://preprod.changan.com.cn:9209'
+    model: 'Qwen3-Embedding'
+    encoding-format: 'float'
+
+milvus:
+  uri: http://10.64.10.210:19531
+  username: root
+  password: rkhRv24VbAQ!
+  db-name: dev_vbot_agent
+
+vhe-device:
+  domain: http://tspdemo.changan.com.cn
+
+home:
+  min:
+    similarity: 0.8
+    command-similarity: 0.7
+  hudemo:
+    open-map:
+      - tuid: 21009002250408420000000458406928
+        open-id: 885a045722d249e6bf1bd5e104170820
