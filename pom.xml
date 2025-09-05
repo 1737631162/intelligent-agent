@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.changan</groupId>
+        <artifactId>carbond-spring-cloud-parent</artifactId>
+        <version>0.0.6</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <artifactId>vbot-intelligent-agent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>vbot-intelligent-agent</name>
+    <description>vbot_intelligent_agent</description>
+  
+    <properties>
+        <carbond-cloud.version>1.2.0</carbond-cloud.version>
+        <carbond-metrics.version>1.2-SNAPSHOT</carbond-metrics.version>
+        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+            </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.changan</groupId>
+                <artifactId>ms-common-core</artifactId>
+                <version>${carbond-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.changan</groupId>
+                <artifactId>ms-common-log-starter</artifactId>
+                <version>${carbond-cloud.version}</version>
+            </dependency>
+            <dependency>
+	            <groupId>com.changan</groupId>
+	            <artifactId>carbond-common-exception</artifactId>
+	            <version>0.0.1-SNAPSHOT</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>cn.hutool</groupId>
+	            <artifactId>hutool-all</artifactId>
+	            <version>5.8.5</version>
+	        </dependency>
+            <dependency>
+                <groupId>com.changan</groupId>
+                <artifactId>ms-common-swagger-starter</artifactId>
+                <version>${carbond-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.changan</groupId>
+                <artifactId>carbond-metrics</artifactId>
+                <version>${carbond-metrics.version}</version>
+            </dependency>
+            	        
+        </dependencies>
+    </dependencyManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>carbond-public</id>
+            <name>Repository by ChangAn</name>
+            <url>http://tspdemo.changan.com.cn/nexus/repository/maven-public</url>
+            <layout>default</layout>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+			<id>changan-iov</id>
+			<name>Repository By ChangAn</name>
+			<url>http://tspdemo.changan.com.cn/nexus/repository/maven-public</url>
+			<layout>default</layout>
+		</repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Snapshot Deploy</name>
+            <url>http://tspdemo.changan.com.cn/nexus/repository/carbond-snapshot/</url>
+        </snapshotRepository>
+        
+    </distributionManagement>
+  
+    <modules>
+    	<module>vbot-intelligent-agent-server</module>
+    	<module>vbot-intelligent-agent-api</module>
+    	<module>vbot-intelligent-agent-facade</module>
+    </modules>
+</project>
